@@ -25,9 +25,8 @@ module.exports = function(passport){
           if (user) {
             done(null, user);
           } else {
-            // user = await User.create(newUser);
-            // done(null, user);
-            done(null, {user: newUser});
+            user = await User.create(newUser);
+            done(null, user);
           }
         } catch (err) {
           console.error(err);
@@ -37,12 +36,10 @@ module.exports = function(passport){
   );
 
   passport.serializeUser((user, done) => {
-    // done(null, user.id);
-    done(null, user);
+    done(null, user.id);
   });
 
   passport.deserializeUser((id, done) => {
-    // User.findById(id, (err, user) => done(err, user));
-    done(null, id);
+    User.findOne({ id: id }, (err, user) => done(err, user));
   });
 };
