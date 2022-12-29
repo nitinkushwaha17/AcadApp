@@ -20,6 +20,7 @@ db.once("open", ()=>{
 const app = express();
 
 app.use(express.urlencoded({extended:true}));
+app.use(express.json())
 app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 
 // Sessions
@@ -35,6 +36,7 @@ app.use(
 // Passport middleware
 app.use(passport.session());
 app.use('/auth', require('./routes/auth'));
+app.use('/posts', require('./routes/post'));
 
 app.get('/', (req,res)=>{
     console.log(req.session);

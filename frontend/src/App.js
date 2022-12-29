@@ -6,6 +6,7 @@ import Home from './pages/home';
 import './App.css';
 import Profile from './pages/profile';
 import Login from './pages/login';
+import NewPost from './pages/newPost';
 import PrivateRoute from './helper/auth/PrivateRoute';
 import axios from 'axios';
 
@@ -45,6 +46,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route index element={<Home />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="new" element={<NewPost />} />
         </Route>
       </Route>
     )
