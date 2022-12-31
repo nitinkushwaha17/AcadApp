@@ -3,6 +3,7 @@ const router = express.Router();
 const { isLoggedIn } = require('../middleware');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const sendNotification = require('../utils/notification');
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
@@ -17,7 +18,9 @@ router.route('/')
         const user = await User.findOne({id: req.user.id}, null, {session});
         user.posts.push(post[0]._id);
         await user.save({session});
-        
+
+        sendNotification([user.subscription]);
+
         res.status(201).json({success: 'sucessfully created'});
     })
     .catch((e)=>{

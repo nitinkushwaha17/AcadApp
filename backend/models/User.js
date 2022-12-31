@@ -16,8 +16,15 @@ const UserSchema = new mongoose.Schema({
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
-    }]
-
+    }],
+    subscription: {
+        endpoint: String,
+        expirationTime: Date,
+        keys: {
+            p256dh: String,
+            auth: String
+        }
+    }
 });
 
 module.exports = mongoose.model('User', UserSchema);

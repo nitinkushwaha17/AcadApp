@@ -37,6 +37,7 @@ app.use(
 app.use(passport.session());
 app.use('/auth', require('./routes/auth'));
 app.use('/posts', require('./routes/post'));
+app.use('/notification', require('./routes/notification'));
 
 app.get('/', (req,res)=>{
     console.log(req.session);
