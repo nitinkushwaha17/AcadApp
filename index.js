@@ -29,6 +29,9 @@ app.use(
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        expires: 30*24*60*60*1000
+      },
       store: MongoStore.create({mongoUrl: process.env.DB_URL||'mongodb://localhost:27017/acadapp'}),
     })
 );
