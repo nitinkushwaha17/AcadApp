@@ -21,7 +21,7 @@ const app = express();
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json())
-app.use(express.static(path.resolve(__dirname, '../frontend/build')));
+app.use(express.static(path.resolve(__dirname, './frontend/build')));
 
 // Sessions
 app.use(
@@ -45,7 +45,7 @@ app.get('/', (req,res)=>{
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, './frontend/build', 'index.html'));
 });
 
 app.listen(3000, ()=>{

@@ -1,12 +1,12 @@
 {
-  "name": "backend",
+  "name": "acadapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "cd ../frontend && npm run build"
+    "build": "cd ./frontend && npm run build"
   },
   "author": "",
   "license": "ISC",
