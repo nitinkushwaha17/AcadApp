@@ -9,6 +9,14 @@ workbox.routing.registerRoute(
   new workbox.strategies.CacheFirst()
 );
 
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  self.clients.claim();
+});
+
 self.addEventListener("push", e => {
   const data = e.data.json();
   console.log("Push Recieved...");
