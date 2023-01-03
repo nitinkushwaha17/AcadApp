@@ -19,7 +19,14 @@ router.route('/')
         user.posts.push(post[0]._id);
         await user.save({session});
 
-        sendNotification([user.subscription]);
+        users = User.find({});
+        let sub;
+        users.forEach(user => {
+            if(user.subscription){
+                sub.push(user.subscription);
+            }
+        })
+        sendNotification(sub);
 
         res.status(201).json({success: 'sucessfully created'});
     })
