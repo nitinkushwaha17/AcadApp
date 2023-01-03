@@ -19,8 +19,8 @@ router.route('/')
         user.posts.push(post[0]._id);
         await user.save({session});
 
-        users = User.find({});
-        let sub;
+        users = await User.find({});
+        let sub=[];
         users.forEach(user => {
             if(user.subscription){
                 sub.push(user.subscription);
