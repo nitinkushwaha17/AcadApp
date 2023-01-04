@@ -37,7 +37,7 @@ export default function Posts(){
         <Box component="main" sx={{ flexGrow: 1, p: 1 }}>
             <Toolbar />
             <Container>
-                <PostList posts={data}/>
+                <PostList posts={data.json()}/>
             </Container>
         </Box>
     </Box>
