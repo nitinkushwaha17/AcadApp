@@ -7,6 +7,7 @@ import './App.css';
 import Profile from './pages/profile';
 import Login from './pages/login';
 import NewPost from './pages/newPost';
+import Posts from './pages/posts';
 import PrivateRoute from './helper/auth/PrivateRoute';
 import axios from 'axios';
 
@@ -47,6 +48,11 @@ function App() {
           <Route index element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="new" element={<NewPost />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="test" element={<Posts />} loader={async()=>{
+            let res = await axios.get("/posts")
+            return res;
+          }}/>
         </Route>
       </Route>
     )
