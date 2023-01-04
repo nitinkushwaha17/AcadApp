@@ -1,9 +1,17 @@
 import { Typography, Chip, List, ListItemButton, ListItemAvatar, Avatar, ListItemText, Divider } from '@mui/material';
 
 export default function PostsList({posts}) {
+  posts.forEach((post)=>{
+    let date_created = new Date(post.createdAt);
+    let date_updated = new Date(post.updatedAt);
+
+    post.createdAt = date_created.toLocaleString('en-IN', { timeZone: 'UTC' }).split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
+    post.updatedAt = date_updated.toLocaleString('en-IN', { timeZone: 'UTC' }).split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
+  })
   return (
     <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
-      {posts.forEach((post)=>(
+    {console.log(posts)}
+      {posts.map((post)=>(
         <>
         <ListItemButton alignItems="flex-start">
           <ListItemAvatar>
@@ -17,7 +25,7 @@ export default function PostsList({posts}) {
                   variant="caption"
                   color="text.primary"
                 >
-                  {posts.createdAt}
+                  {post.createdAt}
                 </Typography>
                 <br />
                 <Typography variant='caption'>Last updated - {post.updatedAt}</Typography>
@@ -32,7 +40,7 @@ export default function PostsList({posts}) {
         </ListItemButton>
         <Divider variant="inset" component="li" />
         </>
-        ))}
+      ))}
       </List>
   );
 }

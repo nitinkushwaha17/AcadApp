@@ -20,7 +20,7 @@ export default function Posts(){
     return(
     <Box sx={{ display: 'flex' }}>
     <Navbar />
-        {matches?<Drawer /> : <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        {matches?<Drawer /> : <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1}} elevation={3}>
         <BottomNavigation
           showLabels
           value={value}
