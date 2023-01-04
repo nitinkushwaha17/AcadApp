@@ -51,7 +51,7 @@ function App() {
           {/* <Route path="posts" element={<Posts />} /> */}
           <Route path="post" element={<Posts />} loader={async()=>{
             let res = await axios.get("/posts")
-            return res;
+            return res.data;
           }}/>
         </Route>
       </Route>
