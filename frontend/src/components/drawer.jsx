@@ -29,7 +29,7 @@ export default function ClippedDrawer() {
           <List>
             {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
               <ListItem key={text} disablePadding>
-              <Link to="/posts">
+              <Link to="/post">
                 <ListItemButton>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}

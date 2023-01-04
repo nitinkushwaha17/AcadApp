@@ -48,8 +48,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="new" element={<NewPost />} />
-          <Route path="posts" element={<Posts />} />
-          <Route path="test" element={<Posts />} loader={async()=>{
+          {/* <Route path="posts" element={<Posts />} /> */}
+          <Route path="post" element={<Posts />} loader={async()=>{
             let res = await axios.get("/posts")
             return res;
           }}/>
