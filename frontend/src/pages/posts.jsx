@@ -30,7 +30,7 @@ export default function Posts(){
         >
           <BottomNavigationAction component={Link} to="/test" label="Announcements" icon={<RestoreIcon />} />
           <BottomNavigationAction label="Assignments" icon={<RestoreIcon />} />
-          <BottomNavigationAction component={Link} to="/test" label="Class Schedule" icon={<Badge badgeContent={4} color="primary"><RestoreIcon /></Badge>} />
+          <BottomNavigationAction component={Link} to="/new" label="Class Schedule" icon={<Badge badgeContent={4} color="primary"><RestoreIcon /></Badge>} />
           
         </BottomNavigation>
       </Paper>}
