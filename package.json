@@ -19,5 +19,8 @@
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "web-push": "^3.5.0"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
   }
 }

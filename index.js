@@ -19,6 +19,9 @@ db.once("open", ()=>{
 
 const app = express();
 
+if (process.env.NODE_ENV !== 'production') {
+    app.use(require('cors')())
+}
 app.use(express.urlencoded({extended:true}));
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, './frontend/build')));

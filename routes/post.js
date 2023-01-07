@@ -9,7 +9,8 @@ const db = mongoose.connection;
 
 router.route('/')
 .get(isLoggedIn, async (req, res) => {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).sort({"updatedAt": "desc"});
+    await User.findByIdAndUpdate(req.user._id, {last_request:{post:Date.now()}});
     res.status(200).send(posts);
 })
 .post(isLoggedIn, async (req, res) => {

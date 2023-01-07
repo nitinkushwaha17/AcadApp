@@ -24,6 +24,12 @@ const UserSchema = new mongoose.Schema({
             p256dh: String,
             auth: String
         }
+    },
+    last_request: {
+        post: {
+            type: Date,
+            default: Date.now
+        }
     }
 });
 
