@@ -14,12 +14,23 @@ import axios from 'axios';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    primary: {
+      main: '#1b4e8f',
+    },
+    secondary: {
+      main: '#2ec5d3',
+    },
+    background: {
+      default: '#192231',
+      paper: '#24344d',
+    },
   },
 });
 
 const UserContext = createContext(null);
 
 function App() {
+  console.log(darkTheme)
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
