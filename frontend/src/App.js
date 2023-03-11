@@ -1,15 +1,19 @@
-import {useEffect, createContext, useState} from 'react';
+import {useEffect, createContext, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import Home from './pages/home';
 import './App.css';
 import Profile from './pages/profile';
 import Login from './pages/login';
 import NewPost from './pages/newPost';
+import Add from './pages/add';
 import Posts from './pages/posts';
 import PrivateRoute from './helper/auth/PrivateRoute';
 import axios from 'axios';
+import Boilerplate from "./helper/boilerplate"
+import Post from './pages/post';
+import JoinSubject from './pages/joinSubject';
 
 const darkTheme = createTheme({
   palette: {
@@ -56,14 +60,16 @@ function App() {
       <Route path="/">
         <Route path="login" element={<Login />} />
         <Route element={<PrivateRoute />}>
-          <Route index element={<Home />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="new" element={<NewPost />} />
-          {/* <Route path="posts" element={<Posts />} /> */}
-          <Route path="post" element={<Posts />} loader={async()=>{
-            let res = await axios.get("/posts")
-            return res.data;
-          }}/>
+          <Route element={<Boilerplate />}>
+            <Route index element={<Home />} />
+            <Route path="profile" element={<Profile />} />
+            {/* <Route path="posts" element={<Posts />} /> */}
+            <Route path="post" element={<Posts />} />
+            <Route path="/post/:id" element={<Post />} />
+            <Route path="join" element={<JoinSubject />} />
+          </Route>
+            <Route path="new" element={<NewPost />} />
+            <Route path="add" element={<Add />} />
         </Route>
       </Route>
     )

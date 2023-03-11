@@ -13,9 +13,21 @@ const UserSchema = new mongoose.Schema({
     },
     name: String,
     image: String,
+    branch: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Dept'
+    },
+    batch: Number,
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
+    }],
+    subSubscribed: [{
+        sub:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Subject'
+        },
+        isCR: Boolean
     }],
     subscription: {
         endpoint: String,

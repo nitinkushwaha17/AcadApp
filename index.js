@@ -41,6 +41,7 @@ app.use(
   
 // Passport middleware
 app.use(passport.session());
+app.use('/add', require('./routes/add'));
 app.use('/auth', require('./routes/auth'));
 app.use('/posts', require('./routes/post'));
 app.use('/notification', require('./routes/notification'));
@@ -49,6 +50,20 @@ app.get('/', (req,res)=>{
     console.log(req.session);
     res.send("Hello, world!");
 });
+const Subject = require('./models/Subject');
+const Dept = require('./models/Dept');
+// app.get('/subjects', async(req,res)=>{
+//     let subjects = await Subject.find({});
+//     res.status(200).send(subjects);
+// })
+// app.get('/dept', async(req,res)=>{
+//     let depts = await Dept.find({});
+//     res.status(200).send(depts);
+// })
+// app.post('/subjects', async(req,res)=>{
+//     let subjects = await Subject.find({});
+//     res.send(subjects);
+// })
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, './frontend/build', 'index.html'));

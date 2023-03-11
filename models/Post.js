@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// const tags = require('../config/tags')
 
 const PostSchema = new mongoose.Schema({
     title: {
@@ -31,6 +32,15 @@ const PostSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag'
+    }], 
+    subject: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subject',
+        required: true
     }
 });
 

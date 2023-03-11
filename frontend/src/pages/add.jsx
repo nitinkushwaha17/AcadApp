@@ -1,70 +1,96 @@
 import { useFormik } from 'formik';
-import { Button, Container, TextField, Typography, Box, Autocomplete, CircularProgress } from '@mui/material';
+import { Button, Container, TextField, Typography, Box, Autocomplete, Stack } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { useState, useEffect } from 'react';
+import { useEffect, useState} from 'react';
 import axios from 'axios';
+import AddDept from '../components/addDept';
+import AddSubject from '../components/addSubject';
+import AddProf from '../components/addProf';
+import AddTag from '../components/addTag';
+
+const tags = [
+  {
+    title: 'Urgent',
+    value: 0,
+  },
+  {
+    title: 'Info',
+    value: 1,
+  },
+  {
+    title: 'Cancelled',
+    value: 2,
+  },
+  {
+    title: 'Extra class',
+    value: 3
+  }
+]
+
+const addVal = ['Subject', 'Tag', 'Session', 'Department', 'Prof']
 
 const NewPost = () => {
+
+  const [add, setAdd] = useState();
 
   const formik = useFormik({
     initialValues: {
       title: '',
       content: '# Hello',
-      tags: [],
-      subject: ''
+      tags: []
     },
     onSubmit: (values) => {
       console.log(values);
-      let tags = values.tags.map(tag => tag._id);
-      let subject = values.subject._id;
-      console.log(tags);
-      axios.post('/posts', {...values, tags, subject})
-      .then((response)=>{
-          console.log(response);
-      }).catch((err) => {
-          console.log(err);
-      })
+      // axios.post('/posts', values)
+      // .then((response)=>{
+      //     console.log(response);
+      // }).catch((err) => {
+      //     console.log(err);
+      // })
     },
   });
 
   const [preview, setPreview] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [subs, setSubs] = useState([]);
-  const loading = open && subs.length === 0;
+  // const [options, setOptions] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [open, setOpen] = useState(false);
 
-  const [openT, setOpenT] = useState(false);
-  const [tags, setTags] = useState([]);
-  const loadingT = openT && tags.length === 0;
+  // useEffect(() => {
+  //   axios.get('/subjects')
+  //   .then((subjects) => {
+  //     console.log(subjects)
+  //     setOptions(subjects.data);
+  //   }).catch((err) => {
+  //     console.log(err);
+  //   }).finally(()=>setLoading(false));
 
-  useEffect(() => {
-    if(!loading) return;
-
-    axios.get('/add/subject')
-    .then((subjects) => {
-      console.log(subjects)
-      setSubs(subjects.data);
-    }).catch((err) => {
-      console.log(err);
-    })
-
-  }, [loading]);
-
-  useEffect(() => {
-    if(!loadingT) return;
-
-    axios.get('/add/tag')
-    .then((tags) => {
-      console.log(tags)
-      setTags(tags.data);
-    }).catch((err) => {
-      console.log(err);
-    })
-
-  }, [loadingT]);
+  // }, []);
 
   return (
-    <Container sx={{p: 5}}>
-        <Typography variant='h3'>New Assigment</Typography>
+    <Container sx={{p: 5, maxWidth: '500px'}}>
+        <Stack direction={'row'} gap={3}>
+        <Typography variant='h3' >Add</Typography>
+        <Autocomplete
+          sx={{width: '50%', maxWidth: '300px'}}
+          // id="tags-outlined"
+          options={addVal}
+          filterSelectedOptions
+          onChange={(_, val)=>{setAdd(val)}}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              value={add}
+              variant="standard"
+              label="filterSelectedOptions"
+              placeholder="Tags"
+            />
+          )}
+        />
+        </Stack>
+        {add==='Department'?<AddDept />:
+        add==='Subject'?<AddSubject />:
+        add==='Prof'?<AddProf />:
+        add==='Tag'?<AddTag />:
         <form onSubmit={formik.handleSubmit}>
         <TextField
             fullWidth
@@ -94,31 +120,23 @@ const NewPost = () => {
             <Box sx={{border: '1px solid grey', p:2}}><ReactMarkdown children={formik.values.content} /></Box>}
         </Box>
         <Autocomplete
-          open={openT}
-          onOpen={() => {
-            setOpenT(true);
-          }}
-          onClose={() => {
-            setOpenT(false);
-          }}
-          loading={loadingT}
           multiple
           id="tags-outlined"
           options={tags}
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => option.title}
           filterSelectedOptions
-          isOptionEqualToValue={(option, value) => option._id === value._id}
+          isOptionEqualToValue={(option, value) => option.title === value.title}
           onChange={(_, value) => formik.setFieldValue("tags", value)}
           renderInput={(params) => (
             <TextField
               {...params}
-              // value={formik.values.tags}
+              value={formik.values.tags}
               label="filterSelectedOptions"
               placeholder="Tags"
             />
           )}
         />
-        <Autocomplete
+        {/* <Autocomplete
           id="asynchronous-demo"
           sx={{ width: 300 }}
           open={open}
@@ -128,12 +146,10 @@ const NewPost = () => {
           onClose={() => {
             setOpen(false);
           }}
-          isOptionEqualToValue={(option, value) => option._id === value._id}
-          getOptionLabel={(option) => `${option.shortName} ${option.name}`}
-          onChange={(_, value) => formik.setFieldValue("subject", value)}
-          options={subs}
-          key={(option)=>option._id}
-          loading={loading}
+          isOptionEqualToValue={(option, value) => option === value}
+          getOptionLabel={(option) => option}
+          options={options}
+          // loading={loading}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -149,11 +165,11 @@ const NewPost = () => {
               }}
             />
           )}
-        />
+        /> */}
         <Button color="primary" variant="contained" fullWidth type="submit" sx={{mt: 5}}>
             Submit
         </Button>
-        </form>
+        </form>}
     </Container>
   );
 };
