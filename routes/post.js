@@ -3,6 +3,7 @@ const router = express.Router();
 const { isLoggedIn } = require('../middleware');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Subject = require('../models/Subject');
 const sendNotification = require('../utils/notification');
 const mongoose = require('mongoose');
 const db = mongoose.connection;
@@ -23,13 +24,15 @@ router.route('/')
 
         // const users = await User.findById(req.user._id).select('subSubscribed.sub').transform((res)=>res.subSubscribed.map((obj)=>obj.sub));
         // console.log(users.includes(req.subject));
-        const users = await Subject.findById(req.subject).students
+        const subject = await Subject.findById(req.body.subject)
+        console.log(subject)
         let sub=[];
-        users.forEach(user => {
+        subject.students.forEach(user => {
             if(user.subscription){
                 sub.push(user.subscription);
             }
         })
+        console.log(sub)
         sendNotification(sub);
 
         res.status(201).json({success: 'sucessfully created'});
