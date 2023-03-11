@@ -24,7 +24,7 @@ router.route('/')
 
         // const users = await User.findById(req.user._id).select('subSubscribed.sub').transform((res)=>res.subSubscribed.map((obj)=>obj.sub));
         // console.log(users.includes(req.subject));
-        const subject = await Subject.findById(req.body.subject)
+        const subject = await Subject.findById(req.body.subject).populate('students')
         console.log(subject)
         let sub=[];
         subject.students.forEach(user => {
@@ -34,7 +34,7 @@ router.route('/')
         })
         console.log(sub)
         sendNotification(sub);
-
+        
         res.status(201).json({success: 'sucessfully created'});
     })
     .catch((e)=>{
