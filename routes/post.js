@@ -10,8 +10,14 @@ const db = mongoose.connection;
 
 router.route('/')
 .get(isLoggedIn, async (req, res) => {
-    const posts = await Post.find({}).sort({"updatedAt": "desc"}).populate(['tags', 'subject']);
-    await User.findByIdAndUpdate(req.user._id, {last_request:{post:Date.now()}});
+    let date = req.query.lastpostdate;
+    let limit = req.query.limit||5;
+    
+    const posts = await Post.find({updatedAt: {$lt: date}}).limit(limit).sort({"updatedAt": "desc"}).populate(['tags', 'subject']);
+    //first req
+    if(!req.query.lastPostDate)
+        await User.findByIdAndUpdate(req.user._id, {last_request:{post:Date.now()}});
+
     res.status(200).send(posts);
 })
 .post(isLoggedIn, async (req, res) => {

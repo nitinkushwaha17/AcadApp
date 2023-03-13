@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function PostsList({posts}) {
   const navigate = useNavigate();
   return (
-    <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
+    <>
     {console.log(posts)}
       {posts.map((post)=>(
         <>
@@ -40,6 +40,6 @@ export default function PostsList({posts}) {
         <Divider variant="inset" component="li" />
         </>
       ))}
-      </List>
+      </>
   );
 }
