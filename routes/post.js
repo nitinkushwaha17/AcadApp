@@ -34,7 +34,7 @@ router.route('/')
         console.log(subject)
         let sub=[];
         subject.students.forEach(user => {
-            if(user.subscription){
+            if(user.subscription&&user.preferences.notif!==false){
                 sub.push(user.subscription);
             }
         })
