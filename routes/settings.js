@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
+router.route('/get')
+.get(async(req, res)=>{
+    const user = await User.findById(req.user._id);
+    res.status(200).send(user.preferences);
+})
+
 router.route('/notif')
 .post(async(req, res)=>{
     console.log(req.user);
