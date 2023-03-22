@@ -16,7 +16,7 @@ import { UserContext } from '../App';
 import { useNavigate } from "react-router-dom";
 
 // const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Preferences', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -164,11 +164,11 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {/* {settings.map((setting) => ( */}
+                <MenuItem onClick={()=>{handleCloseUserMenu();navigate("/settings")}}>
+                  <Typography textAlign="center">Settings</Typography>
                 </MenuItem>
-              ))}
+              {/* ))} */}
             </Menu>
           </Box>
         </Toolbar>

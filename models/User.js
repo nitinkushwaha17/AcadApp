@@ -29,6 +29,12 @@ const UserSchema = new mongoose.Schema({
         },
         isCR: Boolean
     }],
+    preferences: {
+        notif: {
+            type: Boolean,
+            default: true
+        }
+    },
     subscription: {
         endpoint: String,
         expirationTime: Date,

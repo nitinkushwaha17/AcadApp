@@ -1,6 +1,7 @@
 import {useEffect, createContext, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Snackbar, Alert } from '@mui/material';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import Home from './pages/home';
 import './App.css';
@@ -14,6 +15,7 @@ import axios from 'axios';
 import Boilerplate from "./helper/boilerplate"
 import Post from './pages/post';
 import JoinSubject from './pages/joinSubject';
+import Setting from './pages/setting';
 
 const darkTheme = createTheme({
   palette: {
@@ -38,6 +40,20 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   useEffect(()=>{
     axios.get('/auth/getUser')
@@ -68,6 +84,7 @@ function App() {
             <Route path="/post/:id" element={<Post />} />
             <Route path="join" element={<JoinSubject />} />
           </Route>
+            <Route path="settings" element={<Setting />} />
             <Route path="new" element={<NewPost />} />
             <Route path="add" element={<Add />} />
         </Route>
@@ -82,6 +99,11 @@ function App() {
       <CssBaseline />
       <UserContext.Provider value={user}>
         <RouterProvider router={router} />
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            This is a success message!
+          </Alert>
+        </Snackbar>
       </UserContext.Provider>
     </ThemeProvider>
   );
