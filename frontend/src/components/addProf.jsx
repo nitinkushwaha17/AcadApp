@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button, TextField, CircularProgress, Autocomplete } from "@mui/material";
 import { useFormik } from 'formik';
-import axios from 'axios'
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { show } from '../features/snackbarSlice';
 
 export default function AddProf(){
+    const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [depts, setDepts] = useState([]);
     const loading = open && depts.length === 0;
@@ -35,6 +38,7 @@ export default function AddProf(){
           axios.post('/add/prof', values)
           .then((response)=>{
             console.log(response);
+            dispatch(show("Prof added successfully"));
           }).catch((err) => {
             console.log(err);
           })

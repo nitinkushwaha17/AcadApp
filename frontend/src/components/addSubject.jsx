@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import { Autocomplete, TextField, Paper, CircularProgress, Button } from "@mui/material";
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { show } from '../features/snackbarSlice';
 
 export default function AddSubject(){
+    const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [profs, setProfs] = useState([]);
     const loading = open && profs.length === 0;
@@ -27,7 +30,8 @@ export default function AddSubject(){
           console.log(values);
           axios.post('/add/subject', {...values, profs})
           .then((response)=>{
-              console.log(response);
+            console.log(response);
+            dispatch(show('Subject created successfully'))
           }).catch((err) => {
               console.log(err);
           })

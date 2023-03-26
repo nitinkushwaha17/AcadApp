@@ -3,9 +3,14 @@ import { Button, Container, TextField, Typography, Box, Autocomplete, CircularPr
 import ReactMarkdown from 'react-markdown';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { show } from '../features/snackbarSlice';
 
 const NewPost = () => {
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -21,6 +26,8 @@ const NewPost = () => {
       axios.post('/posts', {...values, tags, subject})
       .then((response)=>{
           console.log(response);
+          dispatch(show("Post created successfully"));
+          navigate('/post');
       }).catch((err) => {
           console.log(err);
       })

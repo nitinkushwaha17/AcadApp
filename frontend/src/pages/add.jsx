@@ -30,7 +30,6 @@ const tags = [
 const addVal = ['Subject', 'Tag', 'Session', 'Department', 'Prof']
 
 const NewPost = () => {
-
   const [add, setAdd] = useState();
 
   const formik = useFormik({

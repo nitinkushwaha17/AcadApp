@@ -16,6 +16,8 @@ import Boilerplate from "./helper/boilerplate"
 import Post from './pages/post';
 import JoinSubject from './pages/joinSubject';
 import Setting from './pages/setting';
+import { useSelector, useDispatch } from 'react-redux';
+import { close } from './features/snackbarSlice';
 
 const darkTheme = createTheme({
   palette: {
@@ -37,22 +39,25 @@ const UserContext = createContext(null);
 
 function App() {
   console.log(darkTheme)
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const open = useSelector(state => state.snackbar.open)
+  const message = useSelector(state => state.snackbar.message)
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setOpen(false);
+    dispatch(close());
   };
 
   useEffect(()=>{
@@ -101,7 +106,7 @@ function App() {
         <RouterProvider router={router} />
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            This is a success message!
+            {message}
           </Alert>
         </Snackbar>
       </UserContext.Provider>

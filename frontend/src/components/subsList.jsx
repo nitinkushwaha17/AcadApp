@@ -1,12 +1,18 @@
 import { Button, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { show } from '../features/snackbarSlice';
 
 export default function SubsList({subs}) {
+  const dispatch = useDispatch();
 
   const join = (subId)=>{
     axios.post(`/add/join/${subId}`)
-    .then((response)=>console.log(response))
+    .then((response)=>{
+      console.log(response)
+      dispatch(show("Subject subscribed successfully"));
+    })
     .catch((error)=>console.error(error))
   }
 
