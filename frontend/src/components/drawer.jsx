@@ -40,21 +40,21 @@ export default function ClippedDrawer() {
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-            <Link to="/post">
+          {[['Announcements', '/post'], ['Assignments', '/'], ['New', '/new']].map((ele, index) => (
+            <ListItem component={Link} to={ele[1]} key={ele[0]} disablePadding>
+            {/* <Link to="/post"> */}
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={ele[0]} />
               </ListItemButton>
-              </Link>
+              {/* </Link> */}
             </ListItem>
           ))}
         </List>
-        <Divider />
-        <List>
+        {/* <Divider /> */}
+        {/* <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
@@ -65,7 +65,7 @@ export default function ClippedDrawer() {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Box>
     </Drawer>
     : 

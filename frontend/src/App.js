@@ -80,9 +80,9 @@ function App() {
     createRoutesFromElements(
       <Route path="/">
         <Route path="login" element={<Login />} />
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}> */}
           <Route element={<Boilerplate />}>
-            <Route index element={<Home />} />
+            <Route index element={<Posts />} />
             <Route path="profile" element={<Profile />} />
             {/* <Route path="posts" element={<Posts />} /> */}
             <Route path="post" element={<Posts />} />
@@ -92,7 +92,7 @@ function App() {
             <Route path="settings" element={<Setting />} />
             <Route path="new" element={<NewPost />} />
             <Route path="add" element={<Add />} />
-        </Route>
+        {/* </Route> */}
       </Route>
     )
   );
