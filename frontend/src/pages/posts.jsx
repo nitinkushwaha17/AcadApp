@@ -1,5 +1,5 @@
 import { useState, forwardRef, useContext, useEffect, useCallback } from "react";
-import { Box, List, Toolbar, useTheme, useMediaQuery, Paper, BottomNavigation, BottomNavigationAction, Badge } from "@mui/material"
+import { Box, List, Toolbar, ListItemButton,Typography,ListItemText, ListItemAvatar, Skeleton, Avatar, useTheme, useMediaQuery, Paper, BottomNavigation, BottomNavigationAction, Badge } from "@mui/material"
 import RestoreIcon from '@mui/icons-material/Restore';
 import { Link as RouterLink } from "react-router-dom"
 import Navbar from "../components/navbar"
@@ -76,7 +76,19 @@ export default function Posts(){
                   dataLength={posts.length} //This is important field to render the next data
                   next={fetchData}
                   hasMore={hasMore}
-                  loader={<h4>Loading...</h4>}
+                  loader={
+                    <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
+                    {[...Array(10)].map((e, i)=>(
+                      <ListItemButton>
+                        <Skeleton variant="rectangular" width={40} height={40} sx={{marginRight:2}} />
+                        <ListItemText
+                          primary={<Skeleton/>}
+                          secondary={<Skeleton/>}
+                        ></ListItemText>
+                      </ListItemButton>
+                    ))}
+                    </List>
+                  }
                   endMessage={
                     <p style={{ textAlign: 'center' }}>
                       <b>Yay! You have seen it all</b>
@@ -97,18 +109,15 @@ export default function Posts(){
                 </InfiniteScroll>
               </List>
               :
-              <Box sx={{ '>*':{justifyContent:'center'}}}>
-                <Puff
-                  height="100"
-                  width="100"
-                  radius={1}
-                  color="#4fa94d"
-                  ariaLabel="puff-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                />
-              </Box>
+              <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
+                <ListItemButton>
+                  <Skeleton variant="rectangular" width={40} height={40} sx={{marginRight:2}} />
+                  <ListItemText
+                    primary={<Skeleton/>}
+                    secondary={<Skeleton/>}
+                  ></ListItemText>
+                </ListItemButton>
+              </List>
             }
               <Toolbar />
               <Toolbar />
