@@ -20,19 +20,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { close } from './features/snackbarSlice';
 
 const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#1b4e8f',
-    },
-    secondary: {
-      main: '#2ec5d3',
-    },
-    background: {
-      default: '#192231',
-      paper: '#24344d',
-    },
-  },
+  // palette: {
+  //   mode: 'dark',
+  //   primary: {
+  //     main: '#1b4e8f',
+  //   },
+  //   secondary: {
+  //     main: '#2ec5d3',
+  //   },
+  //   background: {
+  //     default: '#192231',
+  //     paper: '#24344d',
+  //   },
+  // },
 });
 
 const UserContext = createContext(null);
