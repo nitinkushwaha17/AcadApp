@@ -45,24 +45,24 @@ export default function Posts(){
 
     const user = useContext(UserContext);
     
-    // if(posts){
-    // posts.forEach((post)=>{
-    //   let date_created = new Date(post.createdAt);
-    //   let date_updated = new Date(post.updatedAt);
+    if(posts)
+    posts.forEach((post)=>{
+      let date_created = new Date(post.createdAt);
+      let date_updated = new Date(post.updatedAt);
       
-    //   if(user.last_request.post<post.updatedAt){
-    //     post.isUnread = true;
-    //   }
+      if(user.last_request.post<post.updatedAt){
+        post.isUnread = true;
+      }
 
-    //   post.dateCreated = date_created.toLocaleString('en-IN').split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
-    //   post.dateUpdated = date_updated.toLocaleString('en-IN').split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
-    // })}
+      post.dateCreated = date_created.toLocaleString('en-IN').split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
+      post.dateUpdated = date_updated.toLocaleString('en-IN').split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
+    })
 
     let unreadCount = 0;
-    // if(posts)
-    // posts.forEach((post)=>{
-    //   unreadCount+=(post.isUnread?1:0);
-    // });
+    if(posts)
+    posts.forEach((post)=>{
+      unreadCount+=(post.isUnread?1:0);
+    });
 
     return(
     // <Box sx={{ display: 'flex' }}>

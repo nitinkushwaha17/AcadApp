@@ -64,26 +64,44 @@ function App() {
   };
 
   useEffect(()=>{
-    axios.get('/auth/getUser')
-    .then(function (response) {
-        // handle success
-        console.log(response);
-        setUser(response.data);
-    })
-    .catch(function (error) {
-        // handle error
-        console.log(error);
-    })
-    .finally(()=>{
-      setLoading(false);
-    })
+    if(process.env.NODE_ENV !== 'production') {
+      axios.get('http://localhost:3000/auth/getUser')
+      .then(function (response) {
+          // handle success
+          console.log(response);
+          setUser(response.data);
+      })
+      .catch(function (error) {
+          // handle error
+          console.log(error);
+      })
+      .finally(()=>{
+        setLoading(false);
+      })
+    }
+    else{
+      axios.get('/auth/getUser')
+      .then(function (response) {
+          // handle success
+          console.log(response);
+          setUser(response.data);
+      })
+      .catch(function (error) {
+          // handle error
+          console.log(error);
+      })
+      .finally(()=>{
+        setLoading(false);
+      })
+    }
+    
   }, [])
 
   let router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/">
         <Route path="login" element={<Login />} />
-        {/* <Route element={<PrivateRoute />}> */}
+        <Route element={<PrivateRoute />}>
           <Route element={<Boilerplate />}>
             <Route index element={<Posts />} />
             <Route path="profile" element={<Profile />} />
@@ -95,7 +113,7 @@ function App() {
             <Route path="settings" element={<Setting />} />
             <Route path="new" element={<NewPost />} />
             <Route path="add" element={<Add />} />
-        {/* </Route> */}
+        </Route>
       </Route>
     )
   );
