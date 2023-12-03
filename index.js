@@ -48,7 +48,7 @@ app.use('/settings', require('./routes/settings'));
 app.use('/notification', require('./routes/notification'));
 
 app.get('/', (req,res)=>{
-    console.log(req.session);
+    // console.log(req.headers);
     res.send("Hello, world!");
 });
 const Subject = require('./models/Subject');
@@ -67,7 +67,7 @@ const Dept = require('./models/Dept');
 // })
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './frontend/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, './frontend/dist', 'index.html'));
 });
 
 app.listen(3000, ()=>{
