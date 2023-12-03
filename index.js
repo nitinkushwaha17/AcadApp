@@ -53,6 +53,7 @@ app.use('/notification', require('./routes/notification'));
 // });
 const Subject = require('./models/Subject');
 const Dept = require('./models/Dept');
+const { isLoggedIn } = require('./middleware');
 // app.get('/subjects', async(req,res)=>{
 //     let subjects = await Subject.find({});
 //     res.status(200).send(subjects);
@@ -66,7 +67,7 @@ const Dept = require('./models/Dept');
 //     res.send(subjects);
 // })
 
-app.get('*', (req, res) => {
+app.route('*').get((req, res) => {
     res.sendFile(path.resolve(__dirname, './frontend/dist', 'index.html'));
 });
 
