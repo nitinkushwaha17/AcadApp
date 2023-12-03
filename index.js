@@ -24,7 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 app.use(express.urlencoded({extended:true}));
 app.use(express.json())
-app.use(express.static(path.resolve(__dirname, './frontend/build')));
+app.use(express.static(path.resolve(__dirname, './frontend/dist')));
 
 // Sessions
 app.use(
@@ -47,10 +47,10 @@ app.use('/posts', require('./routes/post'));
 app.use('/settings', require('./routes/settings'));
 app.use('/notification', require('./routes/notification'));
 
-app.get('/', (req,res)=>{
-    // console.log(req.headers);
-    res.send("Hello, world!");
-});
+// app.get('/', (req,res)=>{
+//     // console.log(req.headers);
+//     res.send("Hello, world!");
+// });
 const Subject = require('./models/Subject');
 const Dept = require('./models/Dept');
 // app.get('/subjects', async(req,res)=>{
