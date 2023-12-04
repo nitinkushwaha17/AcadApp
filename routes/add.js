@@ -9,7 +9,7 @@ const Subject = require('../models/Subject');
 const Tag = require('../models/Tag');
 
 router.route('/joinsub')
-.get(async(req, res)=>{
+.get(isLoggedIn, async(req, res)=>{
     const subSubscribed = await User.findOne({_id: req.user._id})
     const subArr = subSubscribed.subSubscribed.map(sub=>sub.sub);
     const sub = await Subject.find({}).where('_id').nin(subArr);
