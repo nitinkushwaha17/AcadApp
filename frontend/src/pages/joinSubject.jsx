@@ -1,6 +1,5 @@
-import { useState, forwardRef, useContext, useEffect } from "react";
-import { Box, Toolbar, useTheme, useMediaQuery, Paper, BottomNavigation, BottomNavigationAction, Badge } from "@mui/material"
-import PostList from "../components/postsList"
+import { useState, useEffect } from "react";
+import { Box, Toolbar } from "@mui/material"
 import { Container } from "@mui/system";
 import { Puff } from  'react-loader-spinner'
 import axios from "axios";
@@ -18,8 +17,6 @@ export default function JoinSubject(){
     }, []);
 
     return(
-        <Box component="main" sx={{ flexGrow: 1, p: 1 }}>
-            <Toolbar />
             <Container>
             {subs?
                 <SubsList subs={subs}/>:
@@ -40,6 +37,5 @@ export default function JoinSubject(){
                 <Toolbar />
                 <Toolbar />
             </Container>
-        </Box>
     )
 }

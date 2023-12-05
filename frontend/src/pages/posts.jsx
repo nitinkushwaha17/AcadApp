@@ -65,65 +65,58 @@ export default function Posts(){
     });
 
     return(
-    // <Box sx={{ display: 'flex' }}>
-    // <Navbar />
-        <Box component="main" sx={{ flexGrow: 1, p: 1 }}>
-            <Toolbar />
-            <Container>
-            {posts?
+      <Container>
+      {posts?
+        <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
+          <InfiniteScroll
+            dataLength={posts.length} //This is important field to render the next data
+            next={fetchData}
+            hasMore={hasMore}
+            loader={
               <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
-                <InfiniteScroll
-                  dataLength={posts.length} //This is important field to render the next data
-                  next={fetchData}
-                  hasMore={hasMore}
-                  loader={
-                    <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
-                    {[...Array(10)].map((e, i)=>(
-                      <ListItemButton key={i}>
-                        <Skeleton variant="rectangular" width={40} height={40} sx={{marginRight:2}} />
-                        <ListItemText
-                          primary={<Skeleton/>}
-                          secondary={<Skeleton/>}
-                        ></ListItemText>
-                      </ListItemButton>
-                    ))}
-                    </List>
-                  }
-                  endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                      <b>Yay! You have seen it all</b>
-                    </p>
-                  }
-                  // below props only if you need pull down functionality
-                  refreshFunction={()=>{refresh();console.log('refresh')}}
-                  pullDownToRefresh
-                  pullDownToRefreshThreshold={50}
-                  pullDownToRefreshContent={
-                    <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
-                  }
-                  releaseToRefreshContent={
-                    <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-                  }
-                >
-                  <PostList posts={posts}/>
-                </InfiniteScroll>
-              </List>
-              :
-              <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
-                <ListItemButton>
+              {[...Array(10)].map((e, i)=>(
+                <ListItemButton key={i}>
                   <Skeleton variant="rectangular" width={40} height={40} sx={{marginRight:2}} />
                   <ListItemText
                     primary={<Skeleton/>}
                     secondary={<Skeleton/>}
                   ></ListItemText>
                 </ListItemButton>
+              ))}
               </List>
             }
-              <Toolbar />
-              <Toolbar />
-              <Toolbar />
-            </Container>
-        </Box>
-    // </Box>
+            endMessage={
+              <p style={{ textAlign: 'center' }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+            // below props only if you need pull down functionality
+            refreshFunction={()=>{refresh();console.log('refresh')}}
+            pullDownToRefresh
+            pullDownToRefreshThreshold={50}
+            pullDownToRefreshContent={
+              <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+            }
+            releaseToRefreshContent={
+              <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+            }
+          >
+            <PostList posts={posts}/>
+          </InfiniteScroll>
+        </List>
+        :
+        <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
+          <ListItemButton>
+            <Skeleton variant="rectangular" width={40} height={40} sx={{marginRight:2}} />
+            <ListItemText
+              primary={<Skeleton/>}
+              secondary={<Skeleton/>}
+            ></ListItemText>
+          </ListItemButton>
+        </List>
+      }
+        <Toolbar />
+        <Toolbar />
+      </Container>
     )
 }

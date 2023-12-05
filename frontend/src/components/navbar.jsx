@@ -14,23 +14,20 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { UserContext } from '../App';
 import { useNavigate } from "react-router-dom";
-
-// const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Preferences', 'Dashboard', 'Logout'];
+import { useDispatch } from 'react-redux';
+import { toggle } from '../features/sidebarSlice';
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const dispatch = useDispatch();
+
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const handleToggle = () => {
+    dispatch(toggle());
   };
+  
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -39,10 +36,6 @@ function ResponsiveAppBar() {
 
   const user = useContext(UserContext);
   const navigate = useNavigate();
-
-  // const Navigate = ()=>{
-  //   navigate("/profile");
-  // }
 
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -64,21 +57,21 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            AcadApp
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="sidebar"
               aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              aria-haspopup="false"
+              onClick={handleToggle}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
-            <Menu
+            {/* <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -92,26 +85,27 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
+              // sx={{
+              //   display: { xs: 'block', md: 'none' },
+              // }}
+            > */}
               {/* {pages.map((page) => ( */}
-                <MenuItem onClick={()=>{handleCloseNavMenu();navigate("/add")}}>
+                {/* <MenuItem onClick={()=>{handleCloseNavMenu();navigate("/add")}}>
                   <Typography textAlign="center">Add</Typography>
                 </MenuItem>
                 <MenuItem onClick={()=>{handleCloseNavMenu();navigate("/join")}}>
                   <Typography textAlign="center">Join Subject</Typography>
-                </MenuItem>
+                </MenuItem> */}
               {/* ))} */}
-            </Menu>
+            {/* </Menu> */}
           </Box>
+
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -123,11 +117,11 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            AcapApp
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {/* {pages.map((page) => ( */}
-              <Button
+              {/* <Button
                 onClick={()=>{handleCloseNavMenu();navigate("/add");}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -138,14 +132,14 @@ function ResponsiveAppBar() {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Join Subject
-              </Button>
+              </Button> */}
             {/* ))} */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Open menu">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={user?.image} />
+                <Avatar alt="user image" src={user?.image} />
               </IconButton>
             </Tooltip>
             <Menu

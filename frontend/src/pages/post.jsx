@@ -1,4 +1,4 @@
-import { Typography, Box, Toolbar, Container } from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -20,7 +20,6 @@ export default function Post(){
         <>
         {post?
         <Box>
-        <Toolbar />
         <Container>
         <Typography variant="h2">
             {post.title}

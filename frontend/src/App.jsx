@@ -1,5 +1,5 @@
 import {useEffect, createContext, useState } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Snackbar, Alert } from '@mui/material';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
@@ -18,27 +18,11 @@ import JoinSubject from './pages/joinSubject';
 import Setting from './pages/setting';
 import { useSelector, useDispatch } from 'react-redux';
 import { close } from './features/snackbarSlice';
-
-const darkTheme = createTheme({
-  // palette: {
-  //   mode: 'dark',
-  //   primary: {
-  //     main: '#1b4e8f',
-  //   },
-  //   secondary: {
-  //     main: '#2ec5d3',
-  //   },
-  //   background: {
-  //     default: '#192231',
-  //     paper: '#24344d',
-  //   },
-  // },
-});
+import theme from '../theme/theme';
 
 const UserContext = createContext(null);
 
 function App() {
-  console.log(darkTheme)
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     axios.defaults.baseURL = 'http://192.168.0.106:3000';
   }
@@ -47,13 +31,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const [open, setOpen] = useState(false);
   const open = useSelector(state => state.snackbar.open)
   const message = useSelector(state => state.snackbar.message)
-
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -64,37 +43,19 @@ function App() {
   };
 
   useEffect(()=>{
-    if(process.env.NODE_ENV !== 'production') {
-      axios.get('http://localhost:3000/auth/getUser')
-      .then(function (response) {
-          // handle success
-          console.log(response);
-          setUser(response.data);
-      })
-      .catch(function (error) {
-          // handle error
-          console.log(error);
-      })
-      .finally(()=>{
-        setLoading(false);
-      })
-    }
-    else{
-      axios.get('/auth/getUser')
-      .then(function (response) {
-          // handle success
-          console.log(response);
-          setUser(response.data);
-      })
-      .catch(function (error) {
-          // handle error
-          console.log(error);
-      })
-      .finally(()=>{
-        setLoading(false);
-      })
-    }
-    
+    axios.get('/auth/getUser')
+    .then(function (response) {
+        // handle success
+        console.log(response);
+        setUser(response.data);
+    })
+    .catch(function (error) {
+        // handle error
+        console.log(error);
+    })
+    .finally(()=>{
+      setLoading(false);
+    })
   }, [])
 
   let router = createBrowserRouter(
@@ -105,14 +66,13 @@ function App() {
           <Route element={<Boilerplate />}>
             <Route index element={<Posts />} />
             <Route path="profile" element={<Profile />} />
-            {/* <Route path="posts" element={<Posts />} /> */}
             <Route path="post" element={<Posts />} />
             <Route path="/post/:id" element={<Post />} />
             <Route path="join" element={<JoinSubject />} />
-          </Route>
             <Route path="settings" element={<Setting />} />
             <Route path="new" element={<NewPost />} />
             <Route path="add" element={<Add />} />
+          </Route>
         </Route>
       </Route>
     )
@@ -121,7 +81,7 @@ function App() {
   if(loading) return <p>Loading...</p>
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <UserContext.Provider value={user}>
         <RouterProvider router={router} />
