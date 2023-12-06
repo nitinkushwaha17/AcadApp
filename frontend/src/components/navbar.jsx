@@ -1,4 +1,5 @@
 import {useState, useContext} from 'react';
+import axios from "axios";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -33,6 +34,17 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = () => {
+    axios.get('/auth/logout')
+    .then((resp) => {
+      console.log(resp);
+      navigate('/login');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   const user = useContext(UserContext);
   const navigate = useNavigate();
@@ -161,6 +173,9 @@ function ResponsiveAppBar() {
               {/* {settings.map((setting) => ( */}
                 <MenuItem onClick={()=>{handleCloseUserMenu();navigate("/settings")}}>
                   <Typography textAlign="center">Settings</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
               {/* ))} */}
             </Menu>
