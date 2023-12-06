@@ -13,7 +13,7 @@ router.route('/')
     let date = req.query.lastpostdate;
     let limit = req.query.limit||5;
     
-    const posts = await Post.find({updatedAt: {$lt: date}}).limit(limit).sort({"updatedAt": "desc"}).populate(['tags', 'subject']);
+    const posts = await Post.find({updatedAt: {$lt: date}}).limit(limit).sort({"updatedAt": "desc"}).populate(['tags', 'subject', {path: 'author', select: ['name', 'image']}]);
     //first req
     if(!req.query.lastPostDate)
         await User.findByIdAndUpdate(req.user._id, {last_request:{post:Date.now()}});
@@ -53,7 +53,7 @@ router.route('/')
 
 router.route('/:id')
 .get(async(req, res)=>{
-    const post = await Post.findById(req.params.id).sort({"updatedAt": "desc"}).populate(['tags', 'subject']);
+    const post = await Post.findById(req.params.id).sort({"updatedAt": "desc"}).populate(['tags', 'subject', {path: 'author', select: ['name', 'image']}]);
     if(!post){
         return res.status(404).send({error: 'Post Not Found'});
     }

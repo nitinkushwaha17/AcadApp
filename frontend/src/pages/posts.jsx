@@ -48,14 +48,15 @@ export default function Posts(){
     if(posts)
     posts.forEach((post)=>{
       let date_created = new Date(post.createdAt);
-      let date_updated = new Date(post.updatedAt);
+      // let date_updated = new Date(post.updatedAt);
       
       if(user.last_request.post<post.updatedAt){
         post.isUnread = true;
       }
 
-      post.dateCreated = date_created.toLocaleString('en-IN').split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
-      post.dateUpdated = date_updated.toLocaleString('en-IN').split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
+      post.dateCreated = date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
+      // post.dateCreated = date_created.toLocaleString('en-IN').split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
+      // post.dateUpdated = date_updated.toLocaleString('en-IN').split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
     })
 
     let unreadCount = 0;
@@ -66,8 +67,9 @@ export default function Posts(){
 
     return(
       <Container>
+      <Typography variant="h4" sx={{my: 1}}>Posts</Typography>
       {posts?
-        <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
+        <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper', p:0 }}>
           <InfiniteScroll
             dataLength={posts.length} //This is important field to render the next data
             next={fetchData}

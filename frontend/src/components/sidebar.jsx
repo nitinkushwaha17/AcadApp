@@ -1,7 +1,3 @@
-import { useEffect } from "react";
-// import Link from 'next/link';
-// import { useRouter } from 'next/router';
-import PropTypes from "prop-types";
 import {
   Box,
   Button,
@@ -34,18 +30,13 @@ const items = [
   {
     href: "/post",
     icon: <ArticleIcon fontSize="small" />,
-    title: "Assignments",
+    title: "Posts",
   },
-  {
-    href: "/post",
-    icon: <AccountBoxIcon fontSize="small" />,
-    title: "Announcements",
-  },
-  {
-    href: "/classes",
-    icon: <OpenInNewIcon fontSize="small" />,
-    title: "Classes",
-  },
+  // {
+  //   href: "/classes",
+  //   icon: <OpenInNewIcon fontSize="small" />,
+  //   title: "Classes",
+  // },
   {
     href: "/add",
     icon: <OpenInNewIcon fontSize="small" />,
@@ -147,11 +138,6 @@ const Sidebar = () => {
       {content}
     </Drawer>
   );
-};
-
-Sidebar.propTypes = {
-  onClose: PropTypes.func,
-  open: PropTypes.bool,
 };
 
 export default Sidebar;
