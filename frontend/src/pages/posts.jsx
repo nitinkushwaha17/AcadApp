@@ -4,7 +4,7 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import { Link as RouterLink } from "react-router-dom"
 import Navbar from "../components/navbar"
 import Drawer from "../components/drawer"
-import PostList from "../components/postsList"
+import PostListItem from "../components/postsListItem"
 import { Container } from "@mui/system";
 import {UserContext} from "../App"
 import { Puff } from  'react-loader-spinner'
@@ -13,6 +13,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Posts(){
     const [posts, setPosts] = useState([]);
+    const [isPostUnread, setIsPostUnread] = useState([]);
     const [hasMore, setHasMore] = useState(true);
 
     const getInitialPosts = ()=>{
@@ -45,29 +46,35 @@ export default function Posts(){
 
     const user = useContext(UserContext);
     
-    if(posts)
-    posts.forEach((post)=>{
-      let date_created = new Date(post.createdAt);
-      // let date_updated = new Date(post.updatedAt);
-      
-      if(user.last_request.post<post.updatedAt){
-        post.isUnread = true;
+    useEffect(()=>{
+      let PostUnreadList = [];
+      posts.forEach((post)=>{
+        let date_created = new Date(post.createdAt);
+        // let date_updated = new Date(post.updatedAt);
+        
+        if(user.last_request.post<post.updatedAt){
+          PostUnreadList.push(1);
+        }
+        else PostUnreadList.push(0);
+  
+        post.dateCreated = date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
+        // post.dateCreated = date_created.toLocaleString('en-IN').split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
+        // post.dateUpdated = date_updated.toLocaleString('en-IN').split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
+      })
+  
+      setIsPostUnread(PostUnreadList);
+    }, [posts, user.last_request.post])
+
+    useEffect(()=>{
+      let unreadCount = 0;
+      for(let idx=0; idx<posts.length; idx++){
+        unreadCount+=(isPostUnread[idx]);
       }
-
-      post.dateCreated = date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
-      // post.dateCreated = date_created.toLocaleString('en-IN').split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
-      // post.dateUpdated = date_updated.toLocaleString('en-IN').split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
-    })
-
-    let unreadCount = 0;
-    if(posts)
-    posts.forEach((post)=>{
-      unreadCount+=(post.isUnread?1:0);
-    });
+    }, [isPostUnread, posts]);
 
     return(
-      <Container>
-      <Typography variant="h4" sx={{my: 1}}>Posts</Typography>
+      <>
+      <Typography variant="h4" sx={{mb: 1}}>Posts</Typography>
       {posts?
         <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper', p:0 }}>
           <InfiniteScroll
@@ -103,7 +110,9 @@ export default function Posts(){
               <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
             }
           >
-            <PostList posts={posts}/>
+            {posts.map((post, idx)=>(
+              <PostListItem post={post} unread={isPostUnread[idx]} key={idx}/>
+            ))}
           </InfiniteScroll>
         </List>
         :
@@ -119,6 +128,6 @@ export default function Posts(){
       }
         <Toolbar />
         <Toolbar />
-      </Container>
+      </>
     )
 }

@@ -14,6 +14,12 @@ router.route('/')
     let limit = req.query.limit||5;
     
     const posts = await Post.find({updatedAt: {$lt: date}}).limit(limit).sort({"updatedAt": "desc"}).populate(['tags', 'subject', {path: 'author', select: ['name', 'image']}]);
+
+    // posts.map((post)=>{
+    //     if(req.user.last_request.post<post.updatedAt){
+    //        post.isUnread = true;
+    //     }
+    // })
     //first req
     if(!req.query.lastPostDate)
         await User.findByIdAndUpdate(req.user._id, {last_request:{post:Date.now()}});

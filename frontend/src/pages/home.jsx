@@ -1,14 +1,7 @@
-import React from 'react';
-import Navbar from '../components/navbar';
-import Drawer from '../components/drawer';
+import AnnouncementList from '../components/announcementList';
 
-const Home = () => {
+export default function Home(){
     return (
-        <>
-            <Navbar />
-            <Drawer />
-        </>
+        <AnnouncementList />
     )
 }
-
-export default Home;

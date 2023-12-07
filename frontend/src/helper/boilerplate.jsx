@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import Navbar from "../components/navbar"
 import Sidebar from "../components/sidebar"
 import BottomNav from "../components/bottomNav";
-import { Toolbar, useMediaQuery } from "@mui/material";
+import { Container, Toolbar, useMediaQuery } from "@mui/material";
 
 export default function Boilerplate(){
     const mdUp = useMediaQuery((theme) => theme.breakpoints.up("md"));
@@ -15,9 +15,11 @@ export default function Boilerplate(){
                 <Sidebar />
                 {!mdUp &&
                 (<BottomNav />)}
-                <Box component="main" sx={{ flexGrow: 1, p: 1 }}>
+                <Box component="main" sx={{ flexGrow: 1}}>
                     <Toolbar />
-                    <Outlet sx={{flexGrow: 1}} />
+                    <Container sx={{my:2}}>
+                        <Outlet sx={{flexGrow: 1}} />
+                    </Container>
                 </Box>
             </Box>
         </>

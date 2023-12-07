@@ -64,7 +64,8 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route element={<PrivateRoute />}>
           <Route element={<Boilerplate />}>
-            <Route index element={<Posts />} />
+            <Route index element={<Home />} />
+            {/* <Route path="posts" element={<Posts />} /> */}
             <Route path="profile" element={<Profile />} />
             <Route path="post" element={<Posts />} />
             <Route path="/post/:id" element={<Post />} />
