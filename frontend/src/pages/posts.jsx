@@ -11,6 +11,7 @@ import { Puff } from  'react-loader-spinner'
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PostSkeletonLoader } from "../components/postSkeletonLoader";
+import { formatDate } from "../utils";
 
 export default function Posts(){
     const [posts, setPosts] = useState([]);
@@ -49,18 +50,11 @@ export default function Posts(){
     
     useEffect(()=>{
       let PostUnreadList = [];
-      posts.forEach((post)=>{
-        let date_created = new Date(post.createdAt);
-        // let date_updated = new Date(post.updatedAt);
-        
+      posts.forEach((post)=>{        
         if(user.last_request.post<post.updatedAt){
           PostUnreadList.push(1);
         }
-        else PostUnreadList.push(0);
-  
-        post.dateCreated = date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
-        // post.dateCreated = date_created.toLocaleString('en-IN').split(', ')[1] + ", " + date_created.toDateString().substring(8, 10)+" "+date_created.toDateString().substring(4, 7);
-        // post.dateUpdated = date_updated.toLocaleString('en-IN').split(', ')[1] + ", " + date_updated.toDateString().substring(8, 10)+" "+date_updated.toDateString().substring(4, 7);
+        else PostUnreadList.push(0);  
       })
   
       setIsPostUnread(PostUnreadList);

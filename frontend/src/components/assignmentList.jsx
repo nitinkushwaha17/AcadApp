@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import PostsListItem from "./postsListItem";
 import { Link } from "react-router-dom";
 import { PostSkeletonLoader } from "./postSkeletonLoader";
+import AssignmentListItem from "./assignmentListItem";
 
-export default function AnnouncementList() {
+export default function AssignmentList() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     
@@ -22,7 +23,7 @@ export default function AnnouncementList() {
     <>
         <Box>
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
-            <Typography variant="h4">Announcements</Typography>
+            <Typography variant="h4">Assignments</Typography>
             <Typography variant="body1" component={Link} to='/post' sx={{textDecoration: 'none', color:'primary.dark'}}>View all</Typography>
         </Stack>
         {loading?
@@ -30,7 +31,7 @@ export default function AnnouncementList() {
             <PostSkeletonLoader num={3} />
         ):
         posts.map((post, idx)=>(
-          <PostsListItem post={post} key={idx} sx={{my:1}}/>
+            <AssignmentListItem post={post} key={idx}/>
         ))}
         </Box>
     </>
