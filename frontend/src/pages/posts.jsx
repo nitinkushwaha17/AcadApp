@@ -10,6 +10,7 @@ import {UserContext} from "../App"
 import { Puff } from  'react-loader-spinner'
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { PostSkeletonLoader } from "../components/postSkeletonLoader";
 
 export default function Posts(){
     const [posts, setPosts] = useState([]);
@@ -76,23 +77,13 @@ export default function Posts(){
       <>
       <Typography variant="h4" sx={{mb: 1}}>Posts</Typography>
       {posts?
-        <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper', p:0 }}>
+        <List sx={{ width: '100%', maxWidth: 960, p:0 }}>
           <InfiniteScroll
             dataLength={posts.length} //This is important field to render the next data
             next={fetchData}
             hasMore={hasMore}
             loader={
-              <List sx={{ width: '100%', maxWidth: 960, bgcolor: 'background.paper' }}>
-              {[...Array(10)].map((e, i)=>(
-                <ListItemButton key={i}>
-                  <Skeleton variant="rectangular" width={40} height={40} sx={{marginRight:2}} />
-                  <ListItemText
-                    primary={<Skeleton/>}
-                    secondary={<Skeleton/>}
-                  ></ListItemText>
-                </ListItemButton>
-              ))}
-              </List>
+              <PostSkeletonLoader num={10} />
             }
             endMessage={
               <p style={{ textAlign: 'center' }}>
@@ -111,7 +102,9 @@ export default function Posts(){
             }
           >
             {posts.map((post, idx)=>(
-              <PostListItem post={post} unread={isPostUnread[idx]} key={idx}/>
+              <Paper key={idx} sx={{my:1}}>
+                <PostListItem post={post} unread={isPostUnread[idx]} key={idx}/>
+              </Paper>
             ))}
           </InfiniteScroll>
         </List>
